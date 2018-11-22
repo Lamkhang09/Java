@@ -1,0 +1,71 @@
+package JDBC;
+
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.DriverManager;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class Account extends JFrame
+{
+	JLabel lblUser;
+	JTextField tfUser;
+	JLabel lblPassword;
+	JTextField tfPassword;
+	JButton btndangKy;
+	public Account()
+	{
+		lblUser = new JLabel("User Name:");
+		tfUser = new JTextField(10);
+		lblPassword = new JLabel("Password");
+		tfPassword = new JTextField(10);
+		btndangKy = new JButton("Dang Ky");
+		btndangKy.addActionListener
+		(
+			new ActionListener() 
+			{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+				{
+					try {
+						connectDB();
+					} catch (Exception e2) {
+						
+					}
+				}
+			}
+		);
+		Container cont = this.getContentPane();
+		setLayout(new FlowLayout());
+		 
+		cont.add(lblUser);
+		cont.add(tfUser);
+		cont.add(lblPassword);
+		cont.add(tfPassword);
+		cont.add(btndangKy);
+		pack();
+		setVisible(true);
+	}
+	public void connectDB()
+	{
+		try {
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			String connectionUrl = "jdbc:sqlserver://LAB2_17\\SQLEXPRESS;databaseName=StudentDBS;IntegratedSecurity=TRUE"; 
+			System.out.println("Ket noi thanh cong");
+		}
+		catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		new Account();
+	}
+
+}
